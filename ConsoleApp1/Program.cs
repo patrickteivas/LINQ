@@ -10,19 +10,34 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            string Path = System.IO.Directory.GetCurrentDirectory();
-            string Text = System.IO.File.ReadAllText(Path + "/../../../tekst.txt");
-            var CharactersCount = Text.ToUpper().Where(Char.IsLetter).GroupBy(x => x).Select(x => new { Char = x.Key, Count = x.Count() });
-            var CharactersCountDescending = (from element in CharactersCount
-                                            orderby element.Count descending
-                                            select element).ToList();
-
+            string Text = System.IO.File.ReadAllText(System.IO.Directory.GetCurrentDirectory() + "/../../../tekst.txt");
+            
+            //1
             Console.WriteLine("1) Sõnu tekstis: " + Text.Split(' ').ToList().Count);
-            Console.WriteLine("2) Erinevat tähte tekstis: " + Text.ToLower().Where(Char.IsLetter).Distinct().Count());
-            Console.WriteLine("3) Mitu korda esineb erinevat tähte tekstis:");
-            foreach (var item in CharactersCountDescending)
+            
+            //2
+            Console.WriteLine("\n2) Erinevat tähte tekstis: " + Text.ToLower().Where(Char.IsLetter).Distinct().Count());
+
+            //3
+            Console.WriteLine("\n3) Mitu korda esineb erinevat tähte tekstis (Suuremast väiksemani):");
+            var CharactersCount = Text.ToUpper().Where(Char.IsLetter).GroupBy(x => x).Select(x => new { Char = x.Key, Count = x.Count() });
+            foreach (var item in CharactersCount.OrderByDescending(x => x.Count))
             {
                 Console.WriteLine(item.Char + " " + item.Count);
+            }
+            
+            //4
+            Console.WriteLine("\n4)Tekst, kus sõnad ei kordu:");
+            string NonSpecialCharactersText = new string (Text.Where(x => char.IsLetter(x) || char.IsWhiteSpace(x)).ToArray());
+            var Words = NonSpecialCharactersText.ToLower().Split(' ').ToList();
+            var NonRepeatableWords = new List<string> { };
+            foreach (var item in Words)
+            {
+                if (!NonRepeatableWords.Contains(item)) NonRepeatableWords.Add(item);
+            }
+            foreach (var item in NonRepeatableWords)
+            {
+                Console.Write(item + " ");
             }
         }
     }
