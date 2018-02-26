@@ -29,6 +29,7 @@ namespace ConsoleApp1
             //4
             Console.WriteLine("\n4)Sõnad ei kordu:");
             string NonSpecialCharactersText = new string (Text.Where(x => char.IsLetter(x) || char.IsWhiteSpace(x)).ToArray());
+            NonSpecialCharactersText = NonSpecialCharactersText.Replace("\n", "");
             var Words = NonSpecialCharactersText.ToLower().Split(' ').ToList();
             var NonRepeatableWords = new List<string> { };
             foreach (var item in Words)
