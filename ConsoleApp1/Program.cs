@@ -27,7 +27,7 @@ namespace ConsoleApp1
             }
             
             //4
-            Console.WriteLine("\n4)Tekst, kus sõnad ei kordu:");
+            Console.WriteLine("\n4)Sõnad ei kordu:");
             string NonSpecialCharactersText = new string (Text.Where(x => char.IsLetter(x) || char.IsWhiteSpace(x)).ToArray());
             var Words = NonSpecialCharactersText.ToLower().Split(' ').ToList();
             var NonRepeatableWords = new List<string> { };
@@ -37,7 +37,7 @@ namespace ConsoleApp1
             }
             foreach (var item in NonRepeatableWords)
             {
-                Console.Write(item + " ");
+                Console.WriteLine(item);
             }
         }
     }
