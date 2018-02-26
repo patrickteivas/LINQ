@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,9 +37,10 @@ namespace ConsoleApp1
             {
                 if (!NonRepeatableWords.Contains(item)) NonRepeatableWords.Add(item);
             }
-            foreach (var item in NonRepeatableWords)
+            TextInfo FirstCapital = new CultureInfo("en-US", false).TextInfo;
+            foreach (var item in NonRepeatableWords.OrderBy(x => x))
             {
-                Console.WriteLine(item);
+                Console.WriteLine(FirstCapital.ToTitleCase(item));
             }
         }
     }
